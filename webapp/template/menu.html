@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ url_for('diary_of_emotions.index')}}">Дневник эмоций</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      
+
+      <ul class="navbar-nav mr-auto">
+        {% if current_user.is_authenticated %}
+        <li class="nav-item active">
+          <span class="nav-link">Привет, {{ current_user.username }}!</span>
+          <!-- <a class="nav-link" href="{{ url_for('diary_of_emotions.index')}}">Главная страница</a> -->
+        </li>
+        {% if current_user.is_admin %}
+        <li class="nav-item">
+          <a href="{{ url_for('admin.admin_index') }}" class="nav-link">Админка</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('dict_of_emotions.page')}}">Словарь эмоций</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('my_records.my_records')}}">Мои записи</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('my_stat.my_stat')}}">Моя статистика</a>
+      </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('user.logout')}}">Выйти из кабинета</a> 
+        </li>
+        {% else %}
+        <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('user.login')}}">Войти в личный кабинет</a>
+        </li>
+        <li class="nav-item"></li>
+        <a class="nav-link" href="{{ url_for('user.register') }}">Регистрация</a>
+      </li>
+       
+        {% endif %}
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Искать</button>
+      </form>
+    </div>
+  </nav>

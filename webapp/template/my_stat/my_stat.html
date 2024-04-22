@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+      {% block content %}  
+        <div class="row">
+            <div class="col-12">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  <div class="alert alert-warning" role="alert">
+                    {% for message in messages %}
+                    {{ message }}<br>
+                    {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+           
+            
+                {% for smile in smile_record %}
+                  {% if smile.user_id == current_user.id %}
+               
+              <div class="stat-mood">
+                    <p> {{ smile.published }}</p> 
+                    <p> {{ smile.smile_good }}</p> 
+                    <p> {{ smile.smile_crazy }}</p> 
+                    <p> {{ smile.smile_neutral }}</p> 
+                    <p> {{ smile.smile_agry }}</p> 
+                    <p> {{ smile.smile_sad }}</p> 
+
+                </div>
+
+          
+
+              {% endif %}
+              {% endfor %} 
+                <hr />
+
+            
+                  <form action="{{ url_for('my_stat.my_stat') }}">
+                      <button class="op">Скачать график моего настроения</button>
+                  </form>
+
+                  <form action="{{ url_for('my_stat.my_stat') }}">
+                    <button class="op">Скачать график моих эмоций</button>
+                </form>
+
+
+<style>
+
+
+
+</style>
+          </div>
+
+        </div>
+       
+   
+               
+      {% endblock %}

@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+      {% block content %}  
+        <div class="row">
+            <div class="col-8">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  <div class="alert alert-warning" role="alert">
+                    {% for message in messages %}
+                    {{ message }}<br>
+                    {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+                <!-- <h2>Дневник эмоций</h2> -->
+
+                <p class="main-name">Какое у тебя сегодня настроение?</p>
+
+              <div class="item_one">
+
+
+               
+
+                  <form action="{{ url_for('diary_of_emotions.save_smile_form') }}" method="post">
+                    {{ smile_form.hidden_tag() }}
+                    <div class="form-group">
+                      {{ smile_form.smile_good() }}
+                      <div class="smile-icon">{{ smile_form.smile_good.label }}</div>
+                   
+                    </div>
+                    <div class="form-group">
+                      {{ smile_form.smile_crazy () }}
+                      <div class="smile-icon"> {{ smile_form.smile_crazy.label }}</div>
+                   
+                    </div>
+                    <div class="form-group">
+                      {{ smile_form.smile_neutral() }}
+                      <div class="smile-icon">{{ smile_form.smile_neutral.label }}</div>
+                      
+                    </div>
+                    <div class="form-group">
+                      {{ smile_form.smile_angry() }}
+                      <div class="smile-icon">{{ smile_form.smile_angry.label }}</div>
+                      
+                    </div>
+                    <div class="form-group">
+                      {{ smile_form.smile_sad() }}
+                      <div class="smile-icon">{{ smile_form.smile_sad.label }}</div>
+                      
+                    </div>
+                    {{ smile_form.submit }}
+                </form>
+       
+          
+                    
+<!-- 
+                <form class="form_mood" method="post">
+                  <ul>
+                    <li>
+                      <input type="checkbox" id="myCheckbox1" />
+                      <label for="myCheckbox1"><span class="smile_icon">🙂</span></label>
+                    </li>
+                    <li>
+                  
+                      <input type="checkbox" id="myCheckbox2" />
+                      <label for="myCheckbox2"><span class="smile_icon">🤪</span></label>
+                    </li>
+                    <li>
+                  
+                      <input type="checkbox" id="myCheckbox3" />
+                      <label for="myCheckbox3"><span class="smile_icon">😑</span></label>
+                    </li>
+                    <li>
+                  
+                      <input type="checkbox" id="myCheckbox4" />
+                      <label for="myCheckbox4"><span class="smile_icon">😠</span></label>
+                    </li>
+                    <li>
+                  
+                      <input type="checkbox" id="myCheckbox5" />
+                      <label for="myCheckbox5"><span class="smile_icon">😔</span></label>
+                    </li>
+                  </ul>
+                  <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form> -->
+
+              </div>
+
+              <div class="item_two">
+
+                <form action="{{ url_for('diary_of_emotions.save_feel_form') }}" method="post">
+                  {{ feel_form.hidden_tag() }}
+                  <div class="form-group">
+                    {{ feel_form.text_situation.label }}
+                    {{ feel_form.text_situation() }}
+                  </div>
+                  <div class="form-group">
+                    {{ feel_form.text_thoughts.label }}
+                    {{ feel_form.text_thoughts() }}
+                  </div>
+                  <div class="form-group">
+                    {{ feel_form.text_emotions.label }}
+                    {{ feel_form.text_emotions() }}
+                  </div>
+                  <div class="form-group">
+                    {{ feel_form.text_bodily_sensations.label }}
+                    {{ feel_form.text_bodily_sensations() }}
+                  </div>
+                  <div class="form-group">
+                    {{ feel_form.text_result.label }}
+                    {{ feel_form.text_result() }}
+                  </div>
+                  {{ feel_form.submit }}
+              </form>
+            </div>
+
+
+        
+
+
+                <!-- <form class="form_feel">
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Что сегодня произошло?</label>
+                  <textarea placeholder="Опишите событие" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Какие мысли и образы возникли при этом?</label>
+                  <textarea placeholder="Перечислите мысли и образы" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Какие эмоции Вы испытали?</label>
+                  <textarea placeholder="Перечислите эмцоии" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Какие телесные ощущения наблюдали?</label>
+                  <textarea placeholder="Опишите ощущения" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Что думаете об этом событии сейчас?</label>
+                  <textarea placeholder="Напишите об этом" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Сохранить запись</button>
+              </form> -->
+
+
+
+              <form name="form-bloggood-ru">
+              <div id="items">
+              <label for="Text">Я молодец, потому что: </label>
+              <input placeholder="" type="text" name="item1" size="75">
+              <input type="button" value="Добавить поле+" onClick="AddItem();" ID="add">
+              <button type="submit" class="btn btn-primary">Сохранить</button>
+              </div>
+              </form>
+
+
+
+
+                
+<script>
+
+var items=1;
+function AddItem() {
+  div=document.getElementById("items");
+  button=document.getElementById("add");
+  items++;
+  newitem="<strong>Причина " + items + ": </strong>";
+  newitem+="<input ENGINE=text name=item" + items;
+  newitem+=" size=75><br>";
+  newnode=document.createElement("span");
+  newnode.innerHTML=newitem;
+  div.insertBefore(newnode,button);
+}
+</script>              
+        <style>
+
+.item_one{
+
+  margin-top: 50px;
+}
+.item_two{
+
+  margin-top: 50px;
+}
+textarea.form-control {
+  min-height:150px;
+}
+
+        </style>      
+                    
+<!-- <py-script>
+  items = 1
+
+  def AddItem():
+      div = document.getElementById("items")
+      button = document.getElementById("add")
+      items += 1
+      newitem = f'<strong>Поле {items}: </strong>'
+      newitem += f'<input ENGINE=text name=item{items} size=45><br>'
+      newnode = document.createElement("span")
+      newnode.innerHTML = newitem
+      div.insertBefore(newnode, button)
+
+  </py-script> -->
+               
+
+                <style>
+
+#items input{
+border: 1px solid #eee;
+margin-bottom: 10px;
+}
+.main-name{
+  font-size:25px;
+}
+
+.form-check{
+  float:left;
+}
+                  
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: inline-block;
+}
+
+.smile_icon{
+  display: none!important;
+}
+
+label {
+  border: 1px solid #fff;
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+.smile-icon label{
+  font-size: 70px!important;
+  display: inline-block;
+  float: left;
+  height: 100px;
+  width: 100px;
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
+}
+
+
+
+label:before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid grey;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 22px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+
+
+:checked + .smile-icon label {
+  border-color: #ddd;
+}
+
+:checked + .smile-icon label:before {
+  content: "✓";
+  background-color: #81ef36;
+  transform: scale(1);
+  font-size: 15px;
+}
+
+:checked + .smile-icon label {
+  transform: scale(0.9);
+
+}
+
+
+
+
+.smile-range {
+float:left;
+}
+
+.moji {
+  font-size: 8em;
+  text-align: center;
+}
+input {
+  width: 100%;
+  margin: 0 10px;
+}
+.slider {
+  display: flex;
+  justify-content: space-between;
+}
+span {
+  font-weight: bold;
+  color: #5fcf80;
+}
+span:last-child {
+  color: tomato;
+}
+                </style>
+                
+             
+
+          </div>
+            
+                
+
+                <!-- {% for article in articles_list %}
+                <h3><a href="{{ articles.url }}">{{ articles.title }}</a></h3>
+                <p>{{ articles.published.strftime('%Y-%m-%d') }}</p>
+                <hr />
+                {% endfor %} -->
+            </div>
+            <div class="col-4">
+            <!-- <h2>Прогноз погоды</h2>
+            {% if weather %}
+                Погода: {{ weather.temp_C }}, ощущается как {{ weather.FeelsLikeC }}
+            {% else %}
+                Сервис погоды временно недоступен
+            {% endif %} -->
+            </div>
+        </div>
+        
+
+      {% endblock %}

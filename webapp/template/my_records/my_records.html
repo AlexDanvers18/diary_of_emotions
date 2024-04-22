@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+      {% block content %}  
+        <div class="row">
+            <div class="col-12">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  <div class="alert alert-warning" role="alert">
+                    {% for message in messages %}
+                    {{ message }}<br>
+                    {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+           
+            
+                {% for text in text_list %}
+                  {% if text.user_id == current_user.id %}
+                    <!-- <p> {{ text.user_id }}</p> -->
+              <table class="table-feel">
+                <tbody>
+                  <tr>
+                    <td><b>Номер записи</b></td>
+                    <td><b>Дата</b></td>
+                    <td><b>Событие</b></td>
+                    <td><b>Телесные ощущения</b></td>
+                    <td><b>Эмоции</b></td>
+                    <td><b>Мысли</b></td>
+                    <td><b>Что сейчас думаю о ситуации</b></td>
+                  </tr>
+                  <tr>
+                    <td> {{ text.id }}</td>
+                    {% if text.published != None %}  
+                    <td> {{ text.published.strftime("%d/%B/%Y %H:%M") }}</td>
+                    {% else %}  
+                    <td> {{ text.published }}</td>
+                    {% endif %}
+                    <td> {{ text.text_situation }}</td>
+                    <td> {{ text.text_bodily_sensations }}</td>
+                    <td> {{ text.text_emotions }}</td>
+                    <td> {{ text.text_thoughts }}</td>
+                    <td> {{ text.text_result }}</td>
+                    <td><a href="{{ text.id }}/delete_text_record" class="btn btn-danger">Удалить запись</a></td>
+                    <td><a href="{{ text.id }}/update_text_record" class="btn btn-danger">Редактировать запись</a></td>
+                
+                
+
+                  </tr>
+                </tbody>
+              </table>
+
+           
+
+          
+
+              {% endif %}
+              {% endfor %} 
+                <hr />
+
+            
+                  <form action="{{ url_for('my_records.download') }}">
+                      <button class="op">Скачать мои записи</button>
+                  </form>
+
+
+<style>
+
+.op {
+  margin-bottom: 100px;
+}
+table {
+  overflow: hidden;
+  
+  width: 100%;
+  margin: 30px 0px;
+}
+
+td, th {
+    border: 1px solid #999;
+    padding: 10px;
+    position: relative;
+}
+
+th {
+  background-color:#fff;
+}
+
+tr:first-child{
+  background-color: beige;
+}
+
+
+
+
+</style>
+          </div>
+
+        </div>
+       
+   
+               
+      {% endblock %}
