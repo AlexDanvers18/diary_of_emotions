@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{{ url_for('diary_of_emotions.index')}}">Дневник эмоций</a>
+    <!-- <p class="navbar-brand">Дневник эмоций</p> -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,16 +9,18 @@
       
 
       <ul class="navbar-nav mr-auto">
+
+        {% if current_user.is_admin %}
+        <!-- <li class="nav-item">
+          <a href="{{ url_for('admin.admin_index') }}" class="nav-link">Админка</a>
+      </li> -->
+        {% endif %}
         {% if current_user.is_authenticated %}
         <li class="nav-item active">
           <span class="nav-link">Привет, {{ current_user.username }}!</span>
           <!-- <a class="nav-link" href="{{ url_for('diary_of_emotions.index')}}">Главная страница</a> -->
         </li>
-        {% if current_user.is_admin %}
-        <li class="nav-item">
-          <a href="{{ url_for('admin.admin_index') }}" class="nav-link">Админка</a>
-      </li>
-      {% endif %}
+    
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('dict_of_emotions.page')}}">Словарь эмоций</a>
       </li>

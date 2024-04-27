@@ -13,39 +13,52 @@
               {% endif %}
             {% endwith %}
 
-           
-            
-                {% for smile in smile_record %}
-                  {% if smile.user_id == current_user.id %}
-               
-              <div class="stat-mood">
-                    <p> {{ smile.published }}</p> 
-                    <p> {{ smile.smile_good }}</p> 
-                    <p> {{ smile.smile_crazy }}</p> 
-                    <p> {{ smile.smile_neutral }}</p> 
-                    <p> {{ smile.smile_agry }}</p> 
-                    <p> {{ smile.smile_sad }}</p> 
 
-                </div>
+
+
+
+            {% for key, value in emo_dict.items() %}
+
+            
+                {%  if value >= 5 %}
+
+                <h4 style="margin-top:50px; margin-bottom: 30px;"><b>На этой неделе ты чаще всего испытывал(-а): </b></h4>
+
+                      <p>{{ key }} - {{ value }} раз.</p> 
+
+            
+
+                      
+
+                {% endif %} 
+
+              {% endfor %} 
+
+         
+              <p>Для статистики пока мало данных, но процесс сбора данных твоих чувств и эмоций уже запущен. </p>
+           
 
           
+                
 
-              {% endif %}
-              {% endfor %} 
-                <hr />
+          
+              {% for key, value in complete.items() %}
+                
+                
+                  {%  if value >= 7 %}
+                  <h4 style="margin-top:50px; margin-bottom: 30px;"><b>Итого:</b></h4>
+                    <p> {{ key  *  value }}</p> 
+                    <hr />
+
+                  {% endif %} 
+                {% endfor %} 
+
+                <p>Для статистики пока мало данных, но процесс сбора данных твоего настроения уже запущен. </p>
+
 
             
-                  <form action="{{ url_for('my_stat.my_stat') }}">
-                      <button class="op">Скачать график моего настроения</button>
-                  </form>
-
-                  <form action="{{ url_for('my_stat.my_stat') }}">
-                    <button class="op">Скачать график моих эмоций</button>
-                </form>
-
 
 <style>
-
 
 
 </style>

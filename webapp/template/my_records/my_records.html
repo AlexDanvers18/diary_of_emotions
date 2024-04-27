@@ -17,63 +17,90 @@
             
                 {% for text in text_list %}
                   {% if text.user_id == current_user.id %}
-                    <!-- <p> {{ text.user_id }}</p> -->
-              <table class="table-feel">
-                <tbody>
-                  <tr>
-                    <td><b>Номер записи</b></td>
-                    <td><b>Дата</b></td>
-                    <td><b>Событие</b></td>
-                    <td><b>Телесные ощущения</b></td>
-                    <td><b>Эмоции</b></td>
-                    <td><b>Мысли</b></td>
-                    <td><b>Что сейчас думаю о ситуации</b></td>
-                  </tr>
-                  <tr>
-                    <td> {{ text.id }}</td>
+              <div class="table-feel">
+                    <p><b>Номер записи</b>: {{ text.id }}</p>
+
                     {% if text.published != None %}  
-                    <td> {{ text.published.strftime("%d/%B/%Y %H:%M") }}</td>
+                    <p><b>Дата</b>: {{ text.published.strftime("%d/%B/%Y %H:%M") }}</p>
                     {% else %}  
-                    <td> {{ text.published }}</td>
+                    <p><b>Дата</b> {{ text.published }}</p>
                     {% endif %}
-                    <td> {{ text.text_situation }}</td>
-                    <td> {{ text.text_bodily_sensations }}</td>
-                    <td> {{ text.text_emotions }}</td>
-                    <td> {{ text.text_thoughts }}</td>
-                    <td> {{ text.text_result }}</td>
-                    <td><a href="{{ text.id }}/delete_text_record" class="btn btn-danger">Удалить запись</a></td>
-                    <td><a href="{{ text.id }}/update_text_record" class="btn btn-danger">Редактировать запись</a></td>
-                
-                
+                    
+                    <p><b>Событие</b>: {{ text.text_situation }}</p>
+                    <p><b>Телесные ощущения</b>: {{ text.text_bodily_sensations }}</b></p>
+                    <p><b>Эмоции</b>: {{ text.text_emotions }}</p>
+                    <p><b>Мысли</b>: {{ text.text_thoughts }}</p>
+                    <p><b>Что сейчас думаю о ситуации</b>: {{ text.text_result }}</p>
+                    <p><b>Победы дня</b>: {{ text.text_victory }}</p>
+                    <p><b>Курьезы дня</b>: {{ text.text_curiosity }}</p>
+                 
+                  <div class="update-item">
+                    <p class="upd-icon"><a href="{{ text.id }}/update_text_record" class="btn update-icon" title="Редактировать запись" alt="Редактировать запись">🖉</a></p>
+                    <p><a href="{{ text.id }}/delete_text_record" class="btn delete-icon" title ="Удалить запись" alt="Удалить запись">🗑</a></p>
+                  </div>
+                <p class="line">_____________________________________________</p>
 
                   </tr>
                 </tbody>
-              </table>
+              </div>
 
-           
-
-          
+              
 
               {% endif %}
-              {% endfor %} 
-                <hr />
 
-            
-                  <form action="{{ url_for('my_records.download') }}">
-                      <button class="op">Скачать мои записи</button>
-                  </form>
+          
+           
 
+              {% endfor %}
+
+
+
+              <form action="{{ url_for('my_records.download') }}">
+                <button class="op btn btn-info">Скачать мои записи</button>
+            </form>
+
+                </div>
+
+              </div>
 
 <style>
 
+#update_form textarea{
+ width: 100%;
+}
+.line {
+  
+  float: left;
+ width: 100%;
+
+}
+
+.upd-icon {
+  
+    float: left;
+    margin-right: 20px;
+
+}
+.update-icon {
+  
+    color: #fff;
+    background: #01b501;
+    font-size: 25px;
+
+}
+
+.delete-icon {
+    font-size: 25px;
+    background-color: blanchedalmond;
+}
 .op {
   margin-bottom: 100px;
+  font-size: 20px;
 }
-table {
-  overflow: hidden;
+.table-feel {
+  overflow-wrap: break-word;
   
-  width: 100%;
-  margin: 30px 0px;
+
 }
 
 td, th {
@@ -94,9 +121,7 @@ tr:first-child{
 
 
 </style>
-          </div>
-
-        </div>
+         
        
    
                

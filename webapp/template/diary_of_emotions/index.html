@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
       {% block content %}  
+
+      <div class="main-div">Дневник эмоций</div>
+
         <div class="row">
-            <div class="col-8">
+            <div class="col-9">
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                   <div class="alert alert-warning" role="alert">
@@ -12,12 +15,12 @@
                 </div>
               {% endif %}
             {% endwith %}
-                <!-- <h2>Дневник эмоций</h2> -->
+
+                
 
                 <p class="main-name">Какое у тебя сегодня настроение?</p>
 
               <div class="item_one">
-
 
                
 
@@ -39,8 +42,8 @@
                       
                     </div>
                     <div class="form-group">
-                      {{ smile_form.smile_angry() }}
-                      <div class="smile-icon">{{ smile_form.smile_angry.label }}</div>
+                      {{ smile_form.smile_agry() }}
+                      <div class="smile-icon">{{ smile_form.smile_agry.label }}</div>
                       
                     </div>
                     <div class="form-group">
@@ -50,162 +53,275 @@
                     </div>
                     {{ smile_form.submit }}
                 </form>
-       
-          
-                    
-<!-- 
-                <form class="form_mood" method="post">
-                  <ul>
-                    <li>
-                      <input type="checkbox" id="myCheckbox1" />
-                      <label for="myCheckbox1"><span class="smile_icon">🙂</span></label>
-                    </li>
-                    <li>
-                  
-                      <input type="checkbox" id="myCheckbox2" />
-                      <label for="myCheckbox2"><span class="smile_icon">🤪</span></label>
-                    </li>
-                    <li>
-                  
-                      <input type="checkbox" id="myCheckbox3" />
-                      <label for="myCheckbox3"><span class="smile_icon">😑</span></label>
-                    </li>
-                    <li>
-                  
-                      <input type="checkbox" id="myCheckbox4" />
-                      <label for="myCheckbox4"><span class="smile_icon">😠</span></label>
-                    </li>
-                    <li>
-                  
-                      <input type="checkbox" id="myCheckbox5" />
-                      <label for="myCheckbox5"><span class="smile_icon">😔</span></label>
-                    </li>
-                  </ul>
-                  <button type="submit" class="btn btn-primary">Сохранить</button>
-                </form> -->
-
               </div>
 
+
               <div class="item_two">
+
+                <p class="main-name">Твои эмоции и чувства сегодня: </p>
+
+                <form action="{{ url_for('diary_of_emotions.save_emotions_form') }}" method="post">
+                  {{ emo_form.hidden_tag() }}
+                <div class="checkbox-group">
+                  {% for checkbox in emo_form %}
+                  {% if checkbox.type == "BooleanField" %}
+               
+                  <div class="checkbox">
+                    <label class="checkbox-wrapper">
+                      {{ checkbox }}
+                      <span class="checkbox-tile">
+                        <span class="checkbox-label">{{ checkbox.label }}</span>
+                      </span>
+                    </label>
+                  </div>
+
+      
+                  {% endif %}
+      
+                {% endfor %}
+
+
+               
+                  {{ emo_form.submit }}
+               
+                </div>
+              </form>
+            </div>
+              
+
+
+            
+
+              <div class="item_three">
 
                 <form action="{{ url_for('diary_of_emotions.save_feel_form') }}" method="post">
                   {{ feel_form.hidden_tag() }}
                   <div class="form-group">
-                    {{ feel_form.text_situation.label }}
+                    <h5><b>{{ feel_form.text_situation.label }}</b></h5>
                     {{ feel_form.text_situation() }}
                   </div>
                   <div class="form-group">
-                    {{ feel_form.text_thoughts.label }}
+                    <h5><b>{{ feel_form.text_thoughts.label }}</b></h5>
                     {{ feel_form.text_thoughts() }}
                   </div>
                   <div class="form-group">
-                    {{ feel_form.text_emotions.label }}
+                  <h5><b>{{ feel_form.text_emotions.label }}</b></h5>
                     {{ feel_form.text_emotions() }}
                   </div>
                   <div class="form-group">
-                    {{ feel_form.text_bodily_sensations.label }}
+                  <h5><b>{{ feel_form.text_bodily_sensations.label }}</b></h5>
                     {{ feel_form.text_bodily_sensations() }}
                   </div>
                   <div class="form-group">
-                    {{ feel_form.text_result.label }}
+                  <h5><b>{{ feel_form.text_result.label }}</b></h5>
                     {{ feel_form.text_result() }}
+                  </div>
+                  <div class="form-group">
+                    <h5><b>{{ feel_form.text_victory.label }}</b></h5>
+                    {{ feel_form.text_victory() }}
+                  </div>
+                  <div class="form-group">
+                  <h5> <b>{{ feel_form.text_curiosity.label }}</b></h5>
+                    {{ feel_form.text_curiosity() }}
                   </div>
                   {{ feel_form.submit }}
               </form>
             </div>
+          </div>
 
+            <div class="col-3" >
+              <iframe class="right_img" src="https://assets.pinterest.com/ext/embed.html?id=892275744909721617" height="336" width="236" frameborder="0" scrolling="no" ></iframe>
+              </div>
+
+
+            </div>
+            
+
+            <div class="footer">&copy;<span id="year"> </span><span> Дневник эмоций. Все права защищены. 2024</span></div>
 
         
-
-
-                <!-- <form class="form_feel">
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Что сегодня произошло?</label>
-                  <textarea placeholder="Опишите событие" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Какие мысли и образы возникли при этом?</label>
-                  <textarea placeholder="Перечислите мысли и образы" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Какие эмоции Вы испытали?</label>
-                  <textarea placeholder="Перечислите эмцоии" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Какие телесные ощущения наблюдали?</label>
-                  <textarea placeholder="Опишите ощущения" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Что думаете об этом событии сейчас?</label>
-                  <textarea placeholder="Напишите об этом" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Сохранить запись</button>
-              </form> -->
-
-
-
-              <form name="form-bloggood-ru">
-              <div id="items">
-              <label for="Text">Я молодец, потому что: </label>
-              <input placeholder="" type="text" name="item1" size="75">
-              <input type="button" value="Добавить поле+" onClick="AddItem();" ID="add">
-              <button type="submit" class="btn btn-primary">Сохранить</button>
-              </div>
-              </form>
-
-
-
-
-                
-<script>
-
-var items=1;
-function AddItem() {
-  div=document.getElementById("items");
-  button=document.getElementById("add");
-  items++;
-  newitem="<strong>Причина " + items + ": </strong>";
-  newitem+="<input ENGINE=text name=item" + items;
-  newitem+=" size=75><br>";
-  newnode=document.createElement("span");
-  newnode.innerHTML=newitem;
-  div.insertBefore(newnode,button);
-}
-</script>              
+             
         <style>
 
-.item_one{
 
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+.footer {
+           
+           bottom: 0;
+           left: 0;
+           right: 0;
+           padding: 2rem;
+           background: #fff;
+         color: #000;
+           font-weight: 500;
+           float: left;
+         width: 100%;
+         }
+
+.main-div {
+    float: left;
+    background-image: url(https://img.goodfon.ru/original/2560x1440/0/50/bumaga-list-beloe.jpg);
+    background-position: 50% 50%;
+    width: 100%;
+    height: 500px;
+    text-align: center;
+    padding-top: 20%;
+    font-size: 50px;
+    font-weight: 600;
+    color: #2d2e7e;
+    font-family: sans-serif;
+    margin: 50px 0px;
+}
+.right_img{
+
+  margin-left:20px; 
+  margin-top:50px;
+}
+
+.checkbox-group {
+  float: left;
+  width: 100%;
+	margin-right: 10px;
+	& > * {
+		margin: .5rem 0.5rem;
+    float: left;
+
+
+	}
+}
+
+.checkbox-group-legend {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #9c9c9c;
+	text-align: center;
+	line-height: 1.125;
+	margin-bottom: 1.25rem;
+  float: left;
   margin-top: 50px;
 }
-.item_two{
 
-  margin-top: 50px;
+.checkbox-input {
+
+	clip: rect(0 0 0 0);
+	clip-path: inset(100%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+
+	&:checked + .checkbox-tile {
+		border-color: #2260ff;
+		box-shadow: 0 5px 10px rgba(#000, 0.1);
+		color: #2260ff;
+		&:before {
+			transform: scale(1);
+			opacity: 1;
+			background-color: #2260ff;
+			border-color: #2260ff;
+		}
+		
+		 .checkbox-label {
+			color: #2260ff!important;
+      font-weight: bold;
+		}
+	}
+	
+	&:focus + .checkbox-tile {
+		border-color: #2260ff;
+		box-shadow: 0 5px 10px rgba(#000, 0.1), 0 0 0 4px #b5c9fc;
+		&:before {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+}
+
+.checkbox-tile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 9rem;
+	min-height: 4rem;
+	border-radius: 0.5rem;
+	border: 2px solid #b5bfd9;
+	background-color: #fff;
+	box-shadow: 0 5px 10px rgba(#000, 0.1);
+	transition: 0.15s ease;
+	cursor: pointer;
+	position: relative;
+
+	&:before {
+		content: "";
+		position: absolute;
+		display: block;
+		width: 1.05rem;
+		height: 1.05rem;
+		border: 2px solid #b5bfd9;
+		background-color: #fff;
+		border-radius: 50%;
+		top: 0.25rem;
+		left: 0.25rem;
+		opacity: 0;
+		transform: scale(0);
+		transition: 0.25s ease;
+	
+	}
+
+	&:hover {
+		border-color: #2260ff;
+		&:before {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+}
+
+.checkbox-icon {
+	transition: .375s ease;
+	color: #494949;
+	svg {
+		width: 3rem;
+		height: 3rem;
+	}
+}
+
+.checkbox-label {
+	color: #707070!important;
+	transition: .375s ease;
+	text-align: center;
+
+}
+
+.checkbox-label label{
+  margin-bottom: 0!important;
+  border: none!important;
+}
+
+.item_three {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    float: left;
+    width: 100%;
+}
+
+.item_one{
+  float: left;
+    width: 100%;
+ 
+}
+.item_two{
+  float: left;
+    width: 100%;
+  margin-top: 10px;
 }
 textarea.form-control {
   min-height:150px;
 }
 
-        </style>      
-                    
-<!-- <py-script>
-  items = 1
-
-  def AddItem():
-      div = document.getElementById("items")
-      button = document.getElementById("add")
-      items += 1
-      newitem = f'<strong>Поле {items}: </strong>'
-      newitem += f'<input ENGINE=text name=item{items} size=45><br>'
-      newnode = document.createElement("span")
-      newnode.innerHTML = newitem
-      div.insertBefore(newnode, button)
-
-  </py-script> -->
-               
-
-                <style>
 
 #items input{
 border: 1px solid #eee;
@@ -213,6 +329,9 @@ margin-bottom: 10px;
 }
 .main-name{
   font-size:25px;
+  float: left;
+  margin-top: 50px;
+  width: 100%;
 }
 
 .form-check{
@@ -246,6 +365,8 @@ label {
   width: 100px;
   transition-duration: 0.2s;
   transform-origin: 50% 50%;
+  margin-bottom: 25px;
+  margin-right: 10px;
 }
 
 
@@ -272,6 +393,7 @@ label:before {
 
 :checked + .smile-icon label {
   border-color: #ddd;
+  border-width: 2px;
 }
 
 :checked + .smile-icon label:before {
@@ -288,53 +410,16 @@ label:before {
 
 
 
-
-.smile-range {
-float:left;
-}
-
-.moji {
-  font-size: 8em;
-  text-align: center;
-}
 input {
   width: 100%;
   margin: 0 10px;
 }
-.slider {
-  display: flex;
-  justify-content: space-between;
-}
-span {
-  font-weight: bold;
-  color: #5fcf80;
-}
-span:last-child {
-  color: tomato;
-}
-                </style>
+
+
+
+</style>
                 
              
-
-          </div>
-            
-                
-
-                <!-- {% for article in articles_list %}
-                <h3><a href="{{ articles.url }}">{{ articles.title }}</a></h3>
-                <p>{{ articles.published.strftime('%Y-%m-%d') }}</p>
-                <hr />
-                {% endfor %} -->
-            </div>
-            <div class="col-4">
-            <!-- <h2>Прогноз погоды</h2>
-            {% if weather %}
-                Погода: {{ weather.temp_C }}, ощущается как {{ weather.FeelsLikeC }}
-            {% else %}
-                Сервис погоды временно недоступен
-            {% endif %} -->
-            </div>
-        </div>
         
 
       {% endblock %}

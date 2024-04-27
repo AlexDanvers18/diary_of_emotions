@@ -3,7 +3,6 @@ from io import BytesIO
 from flask import Blueprint, current_app, render_template, flash, redirect, url_for, request, send_file
 from flask_login import login_required, current_user, login_user, logout_user
 from webapp.diary_of_emotions.models import TextRecord
-from webapp.my_records.models import Upload
 from webapp.diary_of_emotions.forms import FeelForm
 from webapp.db import db
 from sqlalchemy import update, delete
@@ -36,6 +35,8 @@ def update_text_record(id):
         update_text_record.text_thoughts = request.form.get('text_thoughts')
         update_text_record.text_situation = request.form.get('text_situation')
         update_text_record.text_result = request.form.get('text_result')
+        update_text_record.text_victory = request.form.get('text_victory')
+        update_text_record.text_curiosity = request.form.get('text_curiosity')
 
 
         try:
@@ -74,12 +75,12 @@ def delete_text_record(id):
 @blueprint.route('/download/', methods=['GET'])
 def download():
 
-    download_file = crud.complete_text_record(1)
+    download_file = crud.complete_text_record(current_user.id)
 
     try:
         if download_file != None:
 
-            return send_file(download_file, download_name = "my_records.txt")
+            return send_file(download_file, as_attachment=True, download_name = "my_records.txt")
     
     except(ValueError, TypeError) as e:
         print(e)

@@ -14,9 +14,6 @@
             {% endwith %}
 
 
-          
-
-
         
             <form id="update_form" action="{{ url_for('my_records.update_text_record', id=update_text_record.id) }}" method="post">
               {{ form.hidden_tag() }}
@@ -34,12 +31,20 @@
                 <textarea type="text" name="text_emotionsn" form="update_form">{{ update_text_record.text_emotions }}</textarea>
               </div>
               <div class="form-group">
-                {{ form.text_bodily_sensations.label }}<br>
+                {{ form.text_bodily_sensations.label }}<br> 
                 <textarea type="text" name="text_bodily_sensations" form="update_form">{{ update_text_record.text_bodily_sensations }}</textarea>
               </div>
               <div class="form-group">
                 {{ form.text_result.label }}<br>
                 <textarea type="text" name="text_result" form="update_form"> {{ update_text_record.text_result }}</textarea>
+              </div>
+              <div class="form-group">
+                {{ form.text_victory.label }}<br>
+                <textarea type="text" name="text_victory" form="update_form"> {{ update_text_record.text_victory }}</textarea>
+              </div>
+              <div class="form-group">
+                {{ form.text_curiosity.label }}<br>
+                <textarea type="text" name="text_curiosity" form="update_form"> {{ update_text_record.text_curiosity }}</textarea>
               </div>
             
                 {{ form.submit }}
@@ -56,6 +61,17 @@
 
         </div>
        
-   
+  
+        <style>
+
+          
+#update_form textarea{
+ width: 100%;
+}
+
+#update_form label{
+ font-weight: bold;
+}
+        </style>
                
       {% endblock %}

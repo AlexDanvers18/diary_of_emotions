@@ -16,6 +16,14 @@ def register():
     title = "Регистрация"
     return render_template('user/registration.html', page_title=title, form=form)
 
+# @blueprint.route('/register')
+# def register():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('diary_of_emotions.index'))
+#     form = RegistrationForm()
+#     title = "Регистрация"
+#     return render_template('user/registration.html', page_title=title, form=form)
+
 @blueprint.route('/process-reg', methods=['POST'])
 def process_reg():
     form = RegistrationForm()

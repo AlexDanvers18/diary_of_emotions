@@ -6,6 +6,6 @@ blueprint = Blueprint('dict_of_emotions', __name__, url_prefix='/dict_of_emotion
 
 @blueprint.route('/')
 def page():
-    title = "Список эмоций"
+    title = "Словарь эмоций"
     return render_template('dict_of_emotions/page.html', page_title=title)
 
